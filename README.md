@@ -1,5 +1,12 @@
 # Dotsy
 
+## 1. Clone the repository
+
+```bash
+git clone https://github.com/Mahirverma/Dotsy.git
+cd Dotsy
+```
+
 ## 2. Create a virtual environment
 
 ```bash
