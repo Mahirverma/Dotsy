@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from app.core.config import settings
 from app.core.database import Base, engine
-from app.models import users, knowledge_base, document
+from app.models import document
+from app.models.Knowledge_Bot import knowledge_base
+from app.models.User import users
 
 Base.metadata.create_all(bind=engine)
 

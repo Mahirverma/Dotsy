@@ -1,0 +1,32 @@
+from sqlalchemy import Column, BigInteger, String, Text, ForeignKey, UniqueConstraint
+from sqlalchemy.sql import func
+from sqlalchemy.dialects.postgresql import TIMESTAMP
+from app.core.database import Base
+
+
+class KnowledgeBot(Base):
+    __tablename__ = "knowledge_bot"
+
+    id = Column(BigInteger, primary_key=True, autoincrement=True)
+    user_id = Column(BigInteger, ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
+    name = Column(String(255), nullable=False)
+    description = Column(Text, nullable=False)
+    prefix_prompt = Column(Text, nullable=False)
+    suffix_prompt = Column(Text, nullable=False)
+
+    created_at = Column(TIMESTAMP(timezone=True), server_default=func.now(), nullable=False)
+    updated_at = Column(TIMESTAMP(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
+
+
+class BotSheetSelection(Base):
+    __tablename__ = "bot_sheet_selection"
+
+    bot_id = Column(BigInteger, ForeignKey("excel_bot.id", ondelete="CASCADE"), primary_key=True)
+    sheet_id = Column(BigInteger, ForeignKey("excel_sheet.id", ondelete="CASCADE"), primary_key=True)
+
+    __table_args__ = (
+        UniqueConstraint("bot_id", "sheet_id", name="uq_bot_sheet_selection"),
+    )
+
+    created_at = Column(TIMESTAMP(timezone=True), server_default=func.now(), nullable=False)
+    updated_at = Column(TIMESTAMP(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)

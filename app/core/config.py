@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     APP_NAME: str = "FastAPI KB System"
     APP_ENV: str = "development"
-
+    DATABASE_URL: str
     DB_HOST: str
     DB_PORT: int
     DB_USER: str
